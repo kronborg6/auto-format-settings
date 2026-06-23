@@ -1,0 +1,20 @@
+# formant setup
+
+### what is this for
+
+this project is for me MUHAHAHA
+im not sure if it a good idea to make this in C++
+
+but her it goes
+
+i just hate setting up new project
+at the moment im learning cmake and cpp
+so im not gona make a script or somfing for that
+
+but what i hate even more is when the formant scuks
+so my idea is
+to make a project that ehiter get run with nvim or somfig so i make a alias or somfig that runs this project and start neovim up
+or se if i can make it run in the backgound and get wait for a IDE to start
+then i wan't it to check if they is a .clang-format if it a c++ project if not create one
+maby im not sure about this but when i queit the ide maby delete the formanter or i need to add it to .gitignore
+becus i don't wan't to force my format onto any one
