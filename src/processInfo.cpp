@@ -1,9 +1,18 @@
 #include "processInfo.hpp"
+#include "project_type.hpp"
+#include "stringHelper.hpp"
+#include <cstddef>
 #include <cstdio>
 #include <cstdlib>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+namespace fs = std::filesystem;
 
 ProcessInfo::ProcessInfo(std::string pid, std::string path) {
   if (pid.empty())
@@ -13,6 +22,50 @@ ProcessInfo::ProcessInfo(std::string pid, std::string path) {
 
   pid_ = pid;
   path_ = path;
+
+  const std::unordered_set<std::string> folders_to_skip = {".git", "build"};
+
+  const auto options = fs::directory_options::skip_permission_denied;
+
+  std::unordered_map<ProgramingLaunge, int> typeCount;
+
+  for (fs::recursive_directory_iterator it(path, options), end; it != end; ++it) {
+
+    const fs::directory_entry& entry = *it;
+    std::string filepath = entry.path().filename().string();
+
+    if (entry.is_directory()) {
+      if (folders_to_skip.contains(filepath)) {
+        it.disable_recursion_pending();
+        continue;
+      }
+    }
+
+    std::string filename = entry.path().filename().string().substr(
+        entry.path().filename().string().find_last_of("/") + 1);
+
+    std::vector<std::string> splitString = split(filename, ".");
+
+    std::string& last = splitString[splitString.size() - 1];
+
+    if (last == "cpp" || last == "hpp") {
+      typeCount[ProgramingLaunge::Cpp]++;
+      continue;
+    } else if (last == "c" || last == "h") {
+      std::cout << entry.path() << '\n';
+      std::cout << entry.path() << '\n';
+      typeCount[ProgramingLaunge::C]++;
+      continue;
+    } else if (last == "zig") {
+      typeCount[ProgramingLaunge::Zig]++;
+      continue;
+    }
+    std::cout << entry.path() << '\n';
+  }
+
+  for (const auto& [key, value] : typeCount) {
+    std::cout << toString(key) << ": " << value << "\n";
+  }
 
   // need to check what kid of project it is
   // after check if it contains a formater

@@ -8,6 +8,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(${PROJECT_NAME}
     src/processInfo.cpp
+    src/project_type.cpp
+    src/stringHelper.cpp
     src/main.cpp
 )
 
