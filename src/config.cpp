@@ -1,8 +1,6 @@
-#include "formatters/TemplateLoader.hpp"
+#include "formatters/templateLoader.hpp"
 #include <cstdlib>
 #include <filesystem>
-#include <iostream>
-#include <optional>
 #include <stdexcept>
 #include <string>
 
