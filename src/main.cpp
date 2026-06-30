@@ -1,3 +1,4 @@
+#include "formatters/formatter.hpp"
 #include "formatters/templateLoader.hpp"
 #include "processInfo.hpp"
 #include "progams.hpp"
@@ -5,6 +6,7 @@
 #include <filesystem>
 #include <print>
 #include <string>
+#include <unordered_map>
 
 int main(void) {
 
@@ -27,11 +29,14 @@ int main(void) {
       auto cwd = std::filesystem::read_symlink("/proc/" + pid + "/cwd");
       ProcessInfo process = ProcessInfo(pid, cwd.string(), templates);
 
-      progams.formaters.push_back(process);
+      if (!progams.formaters.contains(cwd.string())) {
+        progams.formaters.emplace(cwd.string(), process);
+      }
+      // progams.formaters.push_back(process);
     }
   }
 
-  for (ProcessInfo& x : progams.formaters) {
+  for (const auto& [key, x] : progams.formaters) {
 
     std::println("pid: {}, CWD: {}", x.getPid(), x.getPath());
   }
