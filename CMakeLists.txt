@@ -14,6 +14,7 @@ add_executable(${PROJECT_NAME}
     src/stringHelper.cpp
     src/programs.cpp
     src/templateLoader.cpp
+    src/config.cpp
     src/main.cpp
 )
 
