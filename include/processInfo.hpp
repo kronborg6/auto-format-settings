@@ -26,7 +26,8 @@ class ProcessInfo {
     //
     // need to change this from defualt to a function that clean op the systemlink, restore if a old
     // formater existen and undo if we make change to .gitignore
-    ~ProcessInfo() = default;
+    // ~ProcessInfo() = default;
+    ~ProcessInfo();
 
     bool deletFormater();
     bool createFormater();

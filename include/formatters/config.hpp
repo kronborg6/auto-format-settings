@@ -1,7 +1,9 @@
 #pragma once
 
 namespace option {
-  class FormatterTemplateConfig;
-  class FormatterConfig;
+  class Config {
+    public:
+    private:
+  };
 
 } // namespace option

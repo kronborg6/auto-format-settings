@@ -16,6 +16,19 @@
 #include <vector>
 namespace fs = std::filesystem;
 
+ProcessInfo::~ProcessInfo() {
+
+  if (isEnable_ && fs::is_symlink(this->path_ + "/" + this->formatterTemplate_->filename)) {
+
+    if (fs::remove(this->path_ + "/" + this->formatterTemplate_->filename)) {
+      std::cout << "i remove the link" << "\n";
+    } else {
+
+      std::cout << "failed to remove the link" << "\n";
+    }
+  }
+}
+
 ProcessInfo::ProcessInfo(std::string pid,
                          std::string path,
                          // const std::unordered_map<std::string, Formatter>& formatters) {
@@ -124,6 +137,7 @@ void ProcessInfo::enable() {
     fs::create_symlink(formatterTemplate_->filePath,
                        this->path_ + "/" + this->formatterTemplate_->filename);
     std::cout << "created system link\n";
+    isEnable_ = true;
   }
 }
 

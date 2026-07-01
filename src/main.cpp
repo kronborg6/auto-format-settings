@@ -1,14 +1,25 @@
-#include "formatters/formatter.hpp"
 #include "formatters/templateLoader.hpp"
-#include "processInfo.hpp"
+#include "iostream"
 #include "progams.hpp"
-#include <algorithm>
+#include "yaml-cpp/node/node.h"
+#include "yaml-cpp/node/parse.h"
 #include <filesystem>
-#include <print>
+#include <yaml-cpp/yaml.h>
+// #include <print>
 #include <string>
-#include <unordered_map>
 
 int main(void) {
+  try {
+    YAML::Node config = YAML::LoadFile("/home/kronborg/project/setup/config.yaml");
+    const std::string username = config["username"].as<std::string>();
+    std::cout << "Loaded config\n";
+    std::cout << "username: " + username << std::endl;
+  } catch (const YAML::BadFile& e) {
+    std::cerr << "Could not open config file: " << e.what() << '\n';
+  }
+  // YAML::Node config = YAML::LoadFile("/home/kronborg/project/setup/config.yaml");
+
+  // std::println("dev: {}", config["DEV"].as<std::string>());
 
   Programs progams;
   // need to make a load from config her
@@ -22,7 +33,7 @@ int main(void) {
 
   for (const auto& [key, x] : progams.formaters) {
 
-    std::println("pid: {}, CWD: {}", x.getPid(), x.getPath());
+    // std::println("pid: {}, CWD: {}", x.getPid(), x.getPath());
   }
   return 0;
 }
