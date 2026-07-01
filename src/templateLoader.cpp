@@ -13,7 +13,7 @@ fs::path GetPath() {
   if (!home) {
     throw std::invalid_argument("need templates path or provide a vailed path");
   }
-  fs::path templateFolder = fs::path(home) / ".config" / "formattersTemplates";
+  fs::path templateFolder = fs::path(home) / ".config" / "autoFormatter/templates";
   if (!fs::exists(templateFolder)) {
     throw std::invalid_argument("need templates path or provide a vailed path");
   }
